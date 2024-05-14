@@ -7,7 +7,7 @@ require("rpart")
 require("rpart.plot")
 
 # Aqui se debe poner la carpeta de la materia de SU computadora local
-setwd("X:\\gdrive\\itba2024a\\") # Establezco el Working Directory
+setwd("/Users/fcaldora/workspaces/mineria-de-datos") # Establezco el Working Directory
 
 # cargo el dataset
 dataset <- fread("./datasets/dataset_pequeno.csv")
@@ -21,10 +21,10 @@ modelo <- rpart(
         formula = "clase_ternaria ~ .",
         data = dtrain, # los datos donde voy a entrenar
         xval = 0,
-        cp = -0.3, # esto significa no limitar la complejidad de los splits
-        minsplit = 0, # minima cantidad de registros para que se haga el split
-        minbucket = 1, # tamaño minimo de una hoja
-        maxdepth = 3
+        cp = -0.2, # esto significa no limitar la complejidad de los splits
+        minsplit = 600, # entre 0 y n = 1000 minima cantidad de registros para que se haga el split
+        minbucket = 75, # 0 y n/2  tamaño minimo de una hoja
+        maxdepth = 5 # 30
 ) # profundidad maxima del arbol
 
 
@@ -58,8 +58,12 @@ dapply[, Predicted := as.numeric(prob_baja2 > 1 / 40)]
 dir.create("./exp/")
 dir.create("./exp/KA2001")
 
+pdf(paste0("/Users/fcaldora/workspaces/mineria-de-datos", 'K101_013', '.pdf'))
+
+dev.off()
+
 # solo los campos para Kaggle
 fwrite(dapply[, list(numero_de_cliente, Predicted)],
-        file = "./exp/KA2001/K101_001.csv",
+        file = "./exp/KA2001/K101_019.csv",
         sep = ","
 )
