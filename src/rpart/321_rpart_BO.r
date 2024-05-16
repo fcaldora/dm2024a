@@ -194,7 +194,7 @@ EstimarGanancia <- function(x) {
 setwd("~/buckets/b1/")
 
 #cargo MI semilla, que esta en MI bucket
-tabla_semillas <- fread( "./datasets//mis_semillas.txt" )
+tabla_semillas <- fread( "./datasets/mis_semillas.txt" )
 ksemilla_azar <- tabla_semillas[ 1, semilla ]  # 1 es mi primer semilla
 
 # cargo los datos
@@ -206,7 +206,7 @@ dataset <- dataset[foto_mes==202107]
 # creo la carpeta donde va el experimento
 #  HT  representa  Hiperparameter Tuning
 dir.create("./exp/", showWarnings = FALSE)
-dir.create("./exp/HT3210/", showWarnings = FALSE)
+dir.create("./exp/HT3220/", showWarnings = FALSE)
 
 # Establezco el Working Directory DEL EXPERIMENTO
 setwd("./exp/HT3220/")
