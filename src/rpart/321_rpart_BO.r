@@ -209,12 +209,12 @@ dir.create("./exp/", showWarnings = FALSE)
 dir.create("./exp/HT3220/", showWarnings = FALSE)
 
 # Establezco el Working Directory DEL EXPERIMENTO
-setwd("./exp/HT3220/")
+setwd("./exp/HT3210/")
 
 
-archivo_log <- "HT322.txt"
-archivo_log_mejor <- "HT322_mejor.txt"
-archivo_BO <- "HT322.RDATA"
+archivo_log <- "HT321.txt"
+archivo_log_mejor <- "HT321_mejor.txt"
+archivo_BO <- "HT321.RDATA"
 
 # leo si ya existe el log
 #  para retomar en caso que se se corte el programa
