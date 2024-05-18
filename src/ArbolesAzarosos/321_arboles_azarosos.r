@@ -16,8 +16,8 @@ PARAM$experimento <- 3510
 # parameetros rpart
 PARAM$rpart_param <- list(
   "cp" = -1,
-  "minsplit" = 250,
-  "minbucket" = 100,
+  "minsplit" = 50,
+  "minbucket" = 20,
   "maxdepth" = 14
 )
 
