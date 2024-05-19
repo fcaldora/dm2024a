@@ -2,9 +2,8 @@
 # en el bucket, de forma que NO deba cargarlas en cada script
 
 require( "data.table" )
-
 # reemplazar aqui por SUS semillas 
-mis_semillas <- c(102191, 200177, 410551, 552581, 892237)
+mis_semillas <- c(712109, 200029, 262151, 451397, 567649)
 
 tabla_semillas <- as.data.table(list( semilla = mis_semillas ))
 

@@ -11,14 +11,14 @@ require("lightgbm")
 # defino los parametros de la corrida, en una lista, la variable global  PARAM
 #  muy pronto esto se leera desde un archivo formato .yaml
 PARAM <- list()
-PARAM$experimento <- "KA4540"
+PARAM$experimento <- "KA4543"
 
 PARAM$input$dataset <- "~/datasets/dataset_pequeno.csv"
 PARAM$input$training <- c(202107) # meses donde se entrena el modelo
 PARAM$input$future <- c(202109) # meses donde se aplica el modelo
 
 
-PARAM$finalmodel$num_iterations <- 559
+PARAM$finalmodel$num_iterations <- 3500
 PARAM$finalmodel$learning_rate <- 0.0100746999
 PARAM$finalmodel$feature_fraction <- 0.5144127527
 PARAM$finalmodel$min_data_in_leaf <- 505
@@ -122,6 +122,8 @@ prediccion <- predict(
 # genero la tabla de entrega
 tb_entrega <- dapply[, list(numero_de_cliente, foto_mes)]
 tb_entrega[, prob := prediccion]
+# ordeno por probabilidad descendente
+setorder(tb_entrega, -prob)
 
 # grabo las probabilidad del modelo
 fwrite(tb_entrega,
@@ -129,8 +131,6 @@ fwrite(tb_entrega,
   sep = "\t"
 )
 
-# ordeno por probabilidad descendente
-setorder(tb_entrega, -prob)
 
 
 # genero archivos con los  "envios" mejores

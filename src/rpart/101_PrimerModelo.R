@@ -7,7 +7,7 @@ require("rpart")
 require("rpart.plot")
 
 # Aqui se debe poner la carpeta de la materia de SU computadora local
-setwd("/Users/fcaldora/workspaces/mineria-de-datos") # Establezco el Working Directory
+setwd("~/buckets/b1/") # Establezco el Working Directory
 
 # cargo el dataset
 dataset <- fread("./datasets/dataset_pequeno.csv")
@@ -15,19 +15,26 @@ dataset <- fread("./datasets/dataset_pequeno.csv")
 dtrain <- dataset[foto_mes == 202107] # defino donde voy a entrenar
 dapply <- dataset[foto_mes == 202109] # defino donde voy a aplicar el modelo
 
+dtrain <- dtrain[, v_rank := (frankv("ctrx_quarter") / .N)]
+
 # genero el modelo,  aqui se construye el arbol
 # quiero predecir clase_ternaria a partir de el resto de las variables
 modelo <- rpart(
         formula = "clase_ternaria ~ .",
         data = dtrain, # los datos donde voy a entrenar
         xval = 0,
-        cp = -0.2, # esto significa no limitar la complejidad de los splits
-        minsplit = 600, # entre 0 y n = 1000 minima cantidad de registros para que se haga el split
-        minbucket = 75, # 0 y n/2  tamaño minimo de una hoja
-        maxdepth = 5 # 30
+        cp = -0.67,   
+        minsplit = 1144,
+        minbucket = 539,
+        maxdepth = 8
 ) # profundidad maxima del arbol
 
-
+importancia <- modelo$variable.importance
+importancia <- data.table(
+        variable = names(importancia),
+        importancia = importancia
+)
+print(importancia[order(-importancia)])
 # grafico el arbol
 prp(modelo,
         extra = 101, digits = -5,
@@ -58,12 +65,8 @@ dapply[, Predicted := as.numeric(prob_baja2 > 1 / 40)]
 dir.create("./exp/")
 dir.create("./exp/KA2001")
 
-pdf(paste0("/Users/fcaldora/workspaces/mineria-de-datos", 'K101_013', '.pdf'))
-
-dev.off()
-
 # solo los campos para Kaggle
 fwrite(dapply[, list(numero_de_cliente, Predicted)],
-        file = "./exp/KA2001/K101_019.csv",
+        file = "./exp/KA2001/K101_019_fast_rank.csv",
         sep = ","
 )
