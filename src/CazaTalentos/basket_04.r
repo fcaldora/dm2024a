@@ -1,9 +1,9 @@
 
 
-set.seed( 102191 )
+set.seed( 712109 )
 
 #calcula cuantos encestes logra un jugador con indice de enceste prob
-#haciendo qyt tiros libres
+#que hace qyt tiros libres
 
 ftirar  <- function( prob, qty ){
   return( sum( runif(qty) < prob ) )
@@ -11,22 +11,18 @@ ftirar  <- function( prob, qty ){
 
 
 #defino los jugadores
-mejor     <-  0.7
-peloton   <-  ( 501:599 ) / 1000
-jugadores <-  c( mejor, peloton )
+jugadores  <- rep( 0.7, 100 )
 
-#veo que tiene el vector
-jugadores
 
 
 
 
 for( i in 1:10 ){
-  vaciertos  <- mapply( ftirar, jugadores, 10 )  #cada jugador tira 10 tiros libres
+  vaciertos  <- mapply( ftirar, jugadores, 100 )  #cada jugador tira 100 tiros libres
   mejor  <- which.max( vaciertos )
   aciertos_torneo  <- vaciertos[ mejor ]
 
-  aciertos_segunda  <- ftirar( jugadores[ mejor ], 10 )
+  aciertos_segunda  <- ftirar( jugadores[ mejor ], 100 )
 
   cat( aciertos_torneo, "\t", aciertos_segunda, "\n" )
 }
