@@ -286,14 +286,17 @@ TS_strategy_base9 <- function( pinputexps )
 
 
   param_local$future <- c(202109)
-  param_local$final_train <- c(202007, 202006, 202105, 202104,
-    202103, 202102, 202101, 202012, 202011, 202010, 202009)
+  param_local$final_train <- c(202107, 202106, 202105, 202104,
+    202103, 202102, 202101, 202012, 202011, 202010, 202009,
+    201905, 201906, 201907, 201908, 201909, 201910, 201911, 201912)
 
 
-  param_local$train$training <- c(202105, 202104, 202103,
-     202102, 202101, 202012, 202011, 202010, 202009)
-  param_local$train$validation <- c(202106)
-  param_local$train$testing <- c(202107)
+  param_local$train$training <- c(202103,
+     202102, 202101, 202012, 202011, 202010, 202009, 201912,
+     201911, 201910, 201909, 201908, 201907, 201906, 201905,
+     201904, 201903, 201902, 201901)
+  param_local$train$validation <- c(202104)
+  param_local$train$testing <- c(202107, 202106, 202105)
 
   # Atencion  0.2  de  undersampling de la clase mayoritaria,  los CONTINUA
   # 1.0 significa NO undersampling
@@ -460,7 +463,7 @@ wf_semillerio9 <- function( pnombrewf )
   DR_drifting_base(metodo="rank_cero_fijo")
   FEhist_base()
   FErf_attributes_base()
-  #CN_canaritos_asesinos_base(ratio=0.2, desvio=4.0)
+  CN_canaritos_asesinos_base(ratio=1, desvio=0)
 
   ts9 <- TS_strategy_base9()
   ht <- HT_tuning_base()
